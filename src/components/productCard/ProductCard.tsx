@@ -1,23 +1,34 @@
-import { CURRENCY } from "../../constants/Values";
+import { Link } from "react-router-dom";
 import DiscountLabel from "./DiscountLabel";
+import { getCalculatedPrice } from "../../helper/priceHelper";
 
 type ProductCardProps = {
+  id: number;
   title: string;
   description: string;
-  price: string;
-  discount: string;
+  price: number;
+  discountPercentage: number;
   coverImage: string;
 };
 
 const ProductCard = (props: ProductCardProps) => {
-  const { title, description, price, discount, coverImage } = props;
+  const { id, title, description, price, discountPercentage, coverImage } =
+    props;
 
   return (
     <div className="bg-white rounded-[6.5px] p-[10px] border-[0.65px] border-border">
-      <Cover discountValue={discount} title={title} coverSource={coverImage} />
-      <ProductSummary title={title} description={description} price={price} />
+      <Cover
+        discountPercentage={discountPercentage}
+        title={title}
+        coverSource={coverImage}
+      />
+      <ProductSummary
+        title={title}
+        description={description}
+        price={getCalculatedPrice(price, discountPercentage)}
+      />
       <div className="mb-[15px]">
-        <DetailsButton />
+        <DetailsButton id={id} />
       </div>
     </div>
   );
@@ -25,14 +36,14 @@ const ProductCard = (props: ProductCardProps) => {
 
 type CoverProps = {
   title: string;
-  discountValue: string;
+  discountPercentage: number;
   coverSource: string;
 };
 
 const Cover = (props: CoverProps) => (
   <div className="relative">
     <div className="absolute right-[0px] m-[10px]">
-      <DiscountLabel title={props.discountValue} />
+      <DiscountLabel discountPercentage={props.discountPercentage} />
     </div>
     <img
       className="rounded-[6.5px] h-[150px]"
@@ -58,16 +69,23 @@ const ProductSummary = (props: ProductSummaryProps) => (
         {props.description}
       </span>
     </div>
-    <span className="whitespace-nowrap text-[24px] font-gsSemibold mt-[6.5px] leading-[32.4px] break-keep">{`${props.price} ${CURRENCY}`}</span>
+    <span className="whitespace-nowrap text-[24px] font-gsSemibold mt-[6.5px] leading-[32.4px]">{`${props.price}`}</span>
   </div>
 );
 
 //todo lekezelni hogy ugyanakkora legyen a hely akkor is ha 1 soros csak a desc
+type DetailsButtonProps = {
+  id: number;
+};
 
-const DetailsButton = () => (
-  <button className="w-full bg-black font-gsSemibold h-[40px] rounded-[25.83px] mt-[13px]">
-    <span className="text-white leading-[21.6px] text-[16px]">See details</span>
-  </button>
+const DetailsButton = (props: DetailsButtonProps) => (
+  <Link to={`/product/${props.id}`}>
+    <div className="w-full bg-black font-gsSemibold h-[40px] rounded-[25.83px] mt-[13px] text-center content-center">
+      <span className="text-white leading-[21.6px] text-[16px]">
+        See details
+      </span>
+    </div>
+  </Link>
 );
 
 export default ProductCard;

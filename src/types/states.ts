@@ -1,6 +1,6 @@
-import { ProductSummary } from "./product";
+import { ProductDetails } from "./product";
 
 export type ProductState = {
-  products: Array<ProductSummary>;
+  products: Array<ProductDetails>;
   total?: number;
 };

@@ -1,9 +1,15 @@
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
-import { getProducts, storeProducts } from "../actions/productAction";
+import {
+  getProductById,
+  getProducts,
+  storeAllProducts,
+  storeProduct,
+} from "../actions/productAction";
 import axios from "axios";
-import { PageableProducts } from "../../types/product";
+import { PageableProducts, ProductDetails } from "../../types/product";
 import { PageableRequest } from "../../types/pageable";
 import { selectProductsLength } from "../selectors/productSelector";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 const DEFAULT_LIMIT = 10;
 
@@ -22,9 +28,24 @@ function* doGetProducts() {
     skip: savedProductsLength,
   });
 
-  yield put(storeProducts(response));
+  yield put(storeAllProducts(response));
+}
+
+function fetchProductById(id: number) {
+  return axios
+    .get<ProductDetails>(`https://dummyjson.com/products/${id}`)
+    .then(({ data }) => data);
+}
+
+function* doGetProductById(action: PayloadAction<number>) {
+  const response: ProductDetails = yield call(fetchProductById, action.payload);
+
+  yield put(storeProduct(response));
 }
 
 export default function* productSaga() {
-  yield all([takeLatest(getProducts, doGetProducts)]);
+  yield all([
+    takeLatest(getProducts, doGetProducts),
+    takeLatest(getProductById, doGetProductById),
+  ]);
 }

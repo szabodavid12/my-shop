@@ -21,7 +21,11 @@ const ProductsOverview = () => {
       loadMore={() => dispatch(getProducts())}
       hasMore={totalProducts === undefined || products.length < totalProducts}
       threshold={LOADING_TRIGGER_THRESHOLD_IN_PX}
-      loader={<Spinner />}
+      loader={
+        <div key={"spinner-0"}>
+          <Spinner />
+        </div>
+      }
     >
       <h1 className="py-[50px] font-gsSemibold text-[48px] text-center">
         See Products
@@ -31,10 +35,11 @@ const ProductsOverview = () => {
           {products.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               title={product.title}
               description={product.description}
               price={product.price}
-              discount={product.discountPercentage}
+              discountPercentage={product.discountPercentage}
               coverImage={product.thumbnail}
             />
           ))}
