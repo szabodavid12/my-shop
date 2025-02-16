@@ -6,16 +6,12 @@ type RatingSectionProps = {
   rating: number;
 };
 
-const RatingSection = (props: RatingSectionProps) => {
-  const { rating } = props;
-
-  return (
-    <div className="flex gap-[15px]">
-      <RatingStars rating={rating} />
-      <RatingValue rating={rating} />
-    </div>
-  );
-};
+const RatingSection = (props: RatingSectionProps) => (
+  <div className="flex gap-[15px]">
+    <RatingStars rating={props.rating} />
+    <RatingValue rating={props.rating} />
+  </div>
+);
 
 type RatingStarsProps = {
   rating: number;
@@ -35,7 +31,7 @@ type RatingValueProps = {
   rating: number;
 };
 const RatingValue = (props: RatingValueProps) => (
-  <span className="text-[24px] font-gsSemibold leading-[32.4px]">
+  <span className="text-[24px] font-gsSemibold leading-[32.4px] my-auto">
     {props.rating}
   </span>
 );

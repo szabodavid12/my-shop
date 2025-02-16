@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DiscountLabel from "./DiscountLabel";
+import DiscountLabel from "../discountLabel/DiscountLabel";
 import { getCalculatedPrice } from "../../helper/priceHelper";
 
 type ProductCardProps = {
@@ -42,8 +42,11 @@ type CoverProps = {
 
 const Cover = (props: CoverProps) => (
   <div className="relative">
-    <div className="absolute right-[0px] m-[10px]">
-      <DiscountLabel discountPercentage={props.discountPercentage} />
+    <div className="absolute right-[0px] m-[10px] text-[14px] leading-[18.9px]">
+      <DiscountLabel
+        containerClassName=" px-[15px] py-[5px] rounded-[13.88px]"
+        discountPercentage={props.discountPercentage}
+      />
     </div>
     <img
       className="rounded-[6.5px] h-[150px]"

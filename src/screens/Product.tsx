@@ -34,7 +34,7 @@ const Product = () => {
   }, []);
 
   return product ? (
-    <div className="h-screen flex grid grid-cols-2 content-center px-[10rem]">
+    <div className="h-screen flex grid lg:grid-cols-2 content-center px-[10rem]">
       <div>asd</div>
       <ProductDetailsCard
         title={product.title}
