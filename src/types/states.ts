@@ -1,3 +1,3 @@
-export type ItemState = {
+export type ProductState = {
   name: string;
 };

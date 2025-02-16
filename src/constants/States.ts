@@ -1,5 +1,5 @@
-import { ItemState } from "../types/states";
+import { ProductState } from "../types/states";
 
-export const INITIAL_ITEM_STATE: ItemState = {
+export const INITIAL_PRODUCT_STATE: ProductState = {
   name: "",
 };

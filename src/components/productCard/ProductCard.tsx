@@ -1,20 +1,20 @@
 import { CURRENCY } from "../../constants/Values";
 import DiscountLabel from "./DiscountLabel";
 
-type ItemCardProps = {
+type ProductCardProps = {
   title: string;
   description: string;
   price: string;
   discount: string;
 };
 
-const ItemCard = (props: ItemCardProps) => {
+const ProductCard = (props: ProductCardProps) => {
   const { title, description, price, discount } = props;
 
   return (
     <div className="bg-white h-[320px] w-[305px] rounded-[6.5px] p-[10px] border-[0.65px] border-border">
       <Cover discountValue={discount} title={title} />
-      <ItemSummary title={title} description={description} price={price} />
+      <ProductSummary title={title} description={description} price={price} />
       <DetailsButton />
     </div>
   );
@@ -38,13 +38,13 @@ const Cover = (props: CoverProps) => (
   </div>
 );
 
-type ItemSummaryProps = {
+type ProductSummaryProps = {
   title: string;
   description: string;
   price: string;
 };
 
-const ItemSummary = (props: ItemSummaryProps) => (
+const ProductSummary = (props: ProductSummaryProps) => (
   <div className="flex">
     <div className="flex flex-col justify-between ">
       <span className="text-[20px] font-gsSemibold mt-[10px] leading-[27px] line-clamp-[1]">
@@ -66,4 +66,4 @@ const DetailsButton = () => (
   </button>
 );
 
-export default ItemCard;
+export default ProductCard;
