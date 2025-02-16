@@ -1,3 +1,5 @@
+import { ProductSummary } from "./product";
+
 export type ProductState = {
-  name: string;
+  products: Array<ProductSummary>;
 };

@@ -1,3 +1,5 @@
 import { RootState } from "../store";
 
-export const selectMyFirst = (state: RootState) => state.product.name;
+export const selectProducts = (state: RootState) => state.product.products;
+export const selectProductsLength = (state: RootState) =>
+  state.product.products.length;

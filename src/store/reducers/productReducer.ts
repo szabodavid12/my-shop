@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { INITIAL_PRODUCT_STATE } from "../../constants/States";
+import { storeProducts } from "../actions/productAction";
 
 export const productReducer = createReducer(
   INITIAL_PRODUCT_STATE,
   (builder) => {
-    // builder.addCase(myFirstAction, (state) => {
-    //   state.name = "lolasd";
-    // });
+    builder.addCase(storeProducts, (state, action) => {
+      state.products.push(...action.payload);
+    });
   }
 );

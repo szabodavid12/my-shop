@@ -1,18 +1,28 @@
-import { all, call, takeLatest } from "redux-saga/effects";
-import { getProducts } from "../actions/productAction";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
+import { getProducts, storeProducts } from "../actions/productAction";
 import axios from "axios";
+import { PageableProducts, ProductSummary } from "../../types/product";
+import { PageableRequest } from "../../types/pageable";
+import { selectProductsLength } from "../selectors/productSelector";
 
-function fetchProducts() {
+const DEFAULT_LIMIT = 10;
+
+function fetchProducts(request: PageableRequest) {
   return axios
-    .get<any>("https://dummyjson.com/products")
-    .then(({ data }) => data);
+    .get<PageableProducts>("https://dummyjson.com/products", {
+      params: { limit: DEFAULT_LIMIT, skip: request.skip },
+    })
+    .then(({ data }) => data.products);
 }
 
 function* doGetProducts() {
-  const resp: string = yield call(fetchProducts);
-  console.log("asd", resp);
+  const savedProductsLength: number = yield select(selectProductsLength);
 
-  console.log("myFirstCall");
+  const response: Array<ProductSummary> = yield call(fetchProducts, {
+    skip: savedProductsLength,
+  });
+
+  yield put(storeProducts(response));
 }
 
 export default function* productSaga() {

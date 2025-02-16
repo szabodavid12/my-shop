@@ -6,14 +6,15 @@ type ProductCardProps = {
   description: string;
   price: string;
   discount: string;
+  coverImage: string;
 };
 
 const ProductCard = (props: ProductCardProps) => {
-  const { title, description, price, discount } = props;
+  const { title, description, price, discount, coverImage } = props;
 
   return (
     <div className="bg-white h-[320px] w-[305px] rounded-[6.5px] p-[10px] border-[0.65px] border-border">
-      <Cover discountValue={discount} title={title} />
+      <Cover discountValue={discount} title={title} coverSource={coverImage} />
       <ProductSummary title={title} description={description} price={price} />
       <DetailsButton />
     </div>
@@ -23,6 +24,7 @@ const ProductCard = (props: ProductCardProps) => {
 type CoverProps = {
   title: string;
   discountValue: string;
+  coverSource: string;
 };
 
 const Cover = (props: CoverProps) => (
@@ -32,7 +34,7 @@ const Cover = (props: CoverProps) => (
     </div>
     <img
       className=" rounded-[6.5px]"
-      src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+      src={props.coverSource}
       alt={props.title}
     />
   </div>
