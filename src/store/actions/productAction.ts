@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
-import { ProductSummary } from "../../types/product";
+import { PageableProducts } from "../../types/product";
 
 export const getProducts = createAction<void, string>("GET_PRODUCTS");
-export const storeProducts = createAction<Array<ProductSummary>, string>(
+export const storeProducts = createAction<PageableProducts, string>(
   "STORE_PRODUCTS"
 );

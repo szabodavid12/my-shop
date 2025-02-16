@@ -1,7 +1,7 @@
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { getProducts, storeProducts } from "../actions/productAction";
 import axios from "axios";
-import { PageableProducts, ProductSummary } from "../../types/product";
+import { PageableProducts } from "../../types/product";
 import { PageableRequest } from "../../types/pageable";
 import { selectProductsLength } from "../selectors/productSelector";
 
@@ -12,13 +12,13 @@ function fetchProducts(request: PageableRequest) {
     .get<PageableProducts>("https://dummyjson.com/products", {
       params: { limit: DEFAULT_LIMIT, skip: request.skip },
     })
-    .then(({ data }) => data.products);
+    .then(({ data }) => data);
 }
 
 function* doGetProducts() {
   const savedProductsLength: number = yield select(selectProductsLength);
 
-  const response: Array<ProductSummary> = yield call(fetchProducts, {
+  const response: PageableProducts = yield call(fetchProducts, {
     skip: savedProductsLength,
   });
 

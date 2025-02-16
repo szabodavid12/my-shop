@@ -6,7 +6,8 @@ export const productReducer = createReducer(
   INITIAL_PRODUCT_STATE,
   (builder) => {
     builder.addCase(storeProducts, (state, action) => {
-      state.products.push(...action.payload);
+      state.products.push(...action.payload.products);
+      state.total = action.payload.total;
     });
   }
 );

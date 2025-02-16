@@ -13,10 +13,12 @@ const ProductCard = (props: ProductCardProps) => {
   const { title, description, price, discount, coverImage } = props;
 
   return (
-    <div className="bg-white h-[320px] w-[305px] rounded-[6.5px] p-[10px] border-[0.65px] border-border">
+    <div className="bg-white rounded-[6.5px] p-[10px] border-[0.65px] border-border">
       <Cover discountValue={discount} title={title} coverSource={coverImage} />
       <ProductSummary title={title} description={description} price={price} />
-      <DetailsButton />
+      <div className="mb-[15px]">
+        <DetailsButton />
+      </div>
     </div>
   );
 };
@@ -33,7 +35,7 @@ const Cover = (props: CoverProps) => (
       <DiscountLabel title={props.discountValue} />
     </div>
     <img
-      className=" rounded-[6.5px]"
+      className="rounded-[6.5px] h-[150px]"
       src={props.coverSource}
       alt={props.title}
     />
